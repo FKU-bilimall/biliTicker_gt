@@ -5,6 +5,8 @@ mod error;
 mod py;
 mod slide;
 mod w;
+mod FFI;
+mod build;
 
 #[cfg(test)]
 mod tests {

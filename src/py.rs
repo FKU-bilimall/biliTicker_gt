@@ -1,4 +1,4 @@
-use crate::abstraction::{Api, GenerateW, Test, VerifyType};
+/*use crate::abstraction::{Api, GenerateW, Test, VerifyType};
 use crate::click::Click;
 use crate::error::Error;
 use crate::slide::Slide;
@@ -173,3 +173,4 @@ impl ClickPy {
             .map_err(PyErr::from)
     }
 }
+*/
