@@ -247,7 +247,7 @@ impl Test for Click {
     fn test(&mut self, url: &str) -> Result<String> {
         let (gt, challenge) = self.register_test(url)?;
         let (_, _) = self.get_c_s(gt.as_str(), challenge.as_str(), None)?;
-        let _ = self.get_type(gt.as_str(), challenge.as_str(), None)?;
+        let types = self.get_type(gt.as_str(), challenge.as_str(), None)?;
         let (c, s, args) = self.get_new_c_s_args(gt.as_str(), challenge.as_str())?;
         let key = self.calculate_key(args)?;
         let w = self.generate_w(

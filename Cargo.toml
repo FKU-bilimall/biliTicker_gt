@@ -21,6 +21,7 @@ hex="0.4"
 soft-aes="0.2"
 md5 = "0.7"
 libc = "0.2.175"
+cbindgen = "0.29.0"
 
 [patch.crates-io]
 ort = { git="https://github.com/biliticket/ort" }
