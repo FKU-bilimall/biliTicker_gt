@@ -257,6 +257,7 @@ pub extern "C" fn slide_get_new_c_s_args(
     }
 }
 
+#[unsafe(no_mangle)]
 pub extern "C" fn slide_calculate_key(
     ptr: *mut SlideFFI,
     new_challenge: *const c_char,
