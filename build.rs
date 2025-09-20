@@ -13,7 +13,7 @@ fn main() {
             language: Language::C,
             cpp_compat: true,
             export: ExportConfig {
-                include: vec!["ArgsBundle".parse().unwrap(), "ReturnValue".parse().unwrap(), "GeetestChallenge".parse().unwrap(), "GeetestResult".parse().unwrap()],
+                include: vec!["ArgsBundle".parse().unwrap(), "ReturnValue".parse().unwrap(), "GeetestChallenge".parse().unwrap(), "GeetestResult".parse().unwrap(),"GeetestCS".parse().unwrap()],
                 ..Default::default()
             },
             parse: ParseConfig {
