@@ -1,0 +1,78 @@
+# .github/workflows/build.yml
+name: build
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  rust:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+
+          - os: macos-latest
+            target: x86_64-apple-darwin
+
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+
+      - name: Build with cargo
+        run: cargo build --target ${{ matrix.target }} --release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}
+          path: |
+            target/${{ matrix.target }}/release/*.so
+            target/${{ matrix.target }}/release/*.dll
+            target/${{ matrix.target }}/release/*.dll.lib
+            target/${{ matrix.target }}/release/*.dylib
+
+      - name: Upload bindings.h
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
+        uses: actions/upload-artifact@v4
+        with:
+          name: bindings.h
+          path: bindings.h
+
+  release:
+    needs: [rust]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all Binary Zips
+        uses: actions/download-artifact@v5
+        with:
+          merge-multiple: true
+          path: release
+
+      - name: Display structure of release files
+        run: ls -R release
+
+      - name: Publish Nightly
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "nightly"
+          draft: false
+          prerelease: true
+          title: "Nightly updates"
+          files: |
+            release_zips/*
