@@ -75,4 +75,4 @@ jobs:
           prerelease: true
           title: "Nightly updates"
           files: |
-            release_zips/*
+            release/*
